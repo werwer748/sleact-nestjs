@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { WorkspacesModule } from './workspaces/workspaces.module';
 import { ChannelsModule } from './channels/channels.module';
 import { DmsModule } from './dms/dms.module';
+import { UsersService } from './users/users.service';
 
 /*
 const getEnv = async () => {
@@ -31,9 +32,9 @@ const getEnv = async () => {
     ChannelsModule,
     DmsModule,
   ],
-  //모듈 가져다쓸때 연결하는 곳 보통은 그냥 집어넣으면 되는데 ConfigModule.forRoot() 같은게 붙는 경우 설정을 추가해 주기 위해 붙는것
+  //^ 모듈 가져다쓸때 연결하는 곳 보통은 그냥 집어넣으면 되는데 ConfigModule.forRoot() 같은게 붙는 경우 설정을 추가해 주기 위해 붙는것
   controllers: [AppController],
-  providers: [AppService, ConfigService],
+  providers: [AppService, ConfigService, UsersService],
 
   /*
   TODO: ConfigService 추가해 주면 process.env이런식으로 꺼내쓰지 않아도 된다.
