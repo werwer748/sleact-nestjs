@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { User } from 'src/common/decorators/user.decorator';
 import { UserDto } from 'src/common/dto/user.dto';
 import { JoinRequestDto } from './dto/join.request.dto';
 import { UsersService } from './users.service';
@@ -22,9 +23,13 @@ export class UsersController {
   })
   @ApiOperation({ summary: '내 정보 조회' })
   @Get() //^ GET - /api/users
-  getUsers(@Req() req) {
+  getUsers(@User() user) {
+    //(@Req() req) { <= 커스텀 데코레이터 적용 전 코드
     //! 여기서도 쓰긴했지만 (어쩔수없이?) 진짜 안쓰는게 좋음 추후 숨기는거 보여준다고 함.
-    return req.user;
+    //! 커스텀 데코레이터를 사용하여 req를 안써도 user를 가져 올 수 있게 한다.
+    return user; //req.user; <= 커스텀 데코레이터 적용 전 코드
+    // res.locals.jwt <- 보통 여서 토큰 많이 써는데 res, req가 꼭 필요함
+    // 하지만 이런거는 안써주는게 좋기때문에 커스텀 데코레이터라는걸 쓴다.
   }
 
   @ApiOperation({ summary: '회원가입' })
@@ -42,9 +47,9 @@ export class UsersController {
   })
   @ApiOperation({ summary: '로그인' })
   @Post('login') //^ POST - /users/login
-  login(@Req() req) {
+  login(@User() user) {
     //TODO 패스포트 붙일예정
-    return req.user;
+    return user;
   }
 
   @ApiOperation({ summary: '로그아웃' })
