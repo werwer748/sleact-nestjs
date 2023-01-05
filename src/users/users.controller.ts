@@ -5,11 +5,13 @@ import { UserDto } from 'src/common/dto/user.dto';
 import { JoinRequestDto } from './dto/join.request.dto';
 import { UsersService } from './users.service';
 
+//@UseInterceptors(UndefinedToNullInterceptor) //? 이곳에 적용하면 이 컨트롤러 전체에 적용 되고 특정 컨트롤러 위에 사용하면 그 컨트롤러를 사용할 때만 적용 됨
 @ApiTags('USER')
 @Controller('api/users')
 export class UsersController {
   constructor(private usersService: UsersService) {
-    //! 의존성 주입을 위해
+    //! 의존성 주입을 위해 따라서 private, readonly, public크게 상관은 없음
+    //? 해당 컨트롤러 내에서만 사용하려는 의도기 때문에 private을 쓰는게 맞다고 하는 의견도 있음
   }
 
   @ApiResponse({
