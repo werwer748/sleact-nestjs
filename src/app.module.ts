@@ -8,6 +8,15 @@ import { WorkspacesModule } from './workspaces/workspaces.module';
 import { ChannelsModule } from './channels/channels.module';
 import { DmsModule } from './dms/dms.module';
 import { UsersService } from './users/users.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ChannelChats } from 'src/entities/ChannelChats';
+import { ChannelMembers } from 'src/entities/ChannelMembers';
+import { Channels } from 'src/entities/Channels';
+import { DMs } from './entities/DMs';
+import { Mentions } from './entities/Mentions';
+import { Users } from 'src/entities/Users';
+import { WorkspaceMembers } from './entities/WorkspaceMembers';
+import { Workspaces } from './entities/Workspaces';
 
 /*
 const getEnv = async () => {
@@ -22,7 +31,7 @@ const getEnv = async () => {
 */
 //TODO 위처럼 사용시 imports: [ConfigModule.forRoot({ isGlobal: true, load: [getEnv] })], load에 추가시켜줘야함.
 
-//TODO 프로바이더들은 이 모듈에 넣어줘야함(친절하게 providers가 있네).
+//TODO 프로바이더들은 이 모듈에 넣어줘야함(친절하게 providers가 있다).
 //? providers 를 보고 의존성주입을 해준다. (controllers, providers 똑같음. nest가 알아서 연결해준다.)
 @Module({
   imports: [
@@ -31,6 +40,28 @@ const getEnv = async () => {
     WorkspacesModule,
     ChannelsModule,
     DmsModule,
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+      entities: [
+        ChannelChats,
+        ChannelMembers,
+        Channels,
+        DMs,
+        Mentions,
+        Users,
+        WorkspaceMembers,
+        Workspaces,
+      ],
+      synchronize: false, //* entities를 직접 만들고 db로 올릴때 true로 하고 생성된 후에는 false로 해줘야 데이터 상실을 방지 가능
+      logging: true, //* orm이 sql문으로 변환한 코드를 확인할 수 있다.(개발할때 해놓기)
+      keepConnectionAlive: true, //* 핫 리로딩시 디비연결 끊김 방지
+      charset: 'utf8mb4',
+    }),
   ],
   //^ 모듈 가져다쓸때 연결하는 곳 보통은 그냥 집어넣으면 되는데 ConfigModule.forRoot() 같은게 붙는 경우 설정을 추가해 주기 위해 붙는것
   controllers: [AppController],
