@@ -9,12 +9,12 @@ import { ChannelsModule } from './channels/channels.module';
 import { DmsModule } from './dms/dms.module';
 import { UsersService } from './users/users.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ChannelChats } from 'src/entities/ChannelChats';
-import { ChannelMembers } from 'src/entities/ChannelMembers';
-import { Channels } from 'src/entities/Channels';
+import { ChannelChats } from './entities/ChannelChats';
+import { ChannelMembers } from './entities/ChannelMembers';
+import { Channels } from './entities/Channels';
 import { DMs } from './entities/DMs';
 import { Mentions } from './entities/Mentions';
-import { Users } from 'src/entities/Users';
+import { Users } from './entities/Users';
 import { WorkspaceMembers } from './entities/WorkspaceMembers';
 import { Workspaces } from './entities/Workspaces';
 
@@ -57,6 +57,7 @@ const getEnv = async () => {
         WorkspaceMembers,
         Workspaces,
       ],
+      // autoLoadEntities: true,
       synchronize: false, //* entities를 직접 만들고 db로 올릴때 true로 하고 생성된 후에는 false로 해줘야 데이터 상실을 방지 가능
       logging: true, //* orm이 sql문으로 변환한 코드를 확인할 수 있다.(개발할때 해놓기)
       keepConnectionAlive: true, //* 핫 리로딩시 디비연결 끊김 방지

@@ -20,7 +20,7 @@ export class Mentions {
   id: number;
 
   @Column('enum', { name: 'category', enum: ['chat', 'dm', 'system'] })
-  type: 'chat' | 'dm' | 'system';
+  category: 'chat' | 'dm' | 'system';
 
   @Column('int', { name: 'ChatId', nullable: true })
   ChatId: number | null;
