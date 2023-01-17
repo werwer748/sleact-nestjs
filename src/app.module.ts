@@ -43,7 +43,7 @@ const getEnv = async () => {
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      port: 3306,
+      // port: 3306,
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
@@ -63,6 +63,7 @@ const getEnv = async () => {
       keepConnectionAlive: true, //* 핫 리로딩시 디비연결 끊김 방지
       charset: 'utf8mb4',
     }),
+    TypeOrmModule.forFeature([Users]),
   ],
   //^ 모듈 가져다쓸때 연결하는 곳 보통은 그냥 집어넣으면 되는데 ConfigModule.forRoot() 같은게 붙는 경우 설정을 추가해 주기 위해 붙는것
   controllers: [AppController],

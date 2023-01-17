@@ -6,7 +6,7 @@
     "port": 3306,
     "username": "root",
     "password": "hugosnodejs",
-    "database": "",
+    "database": "sleact",
     "synchronize": false,
     "entities": ["entities/*.js"]
   }

@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpException,
+  Post,
+  Req,
+  Res,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/common/decorators/user.decorator';
 import { UserDto } from 'src/common/dto/user.dto';
@@ -36,9 +44,9 @@ export class UsersController {
 
   @ApiOperation({ summary: '회원가입' })
   @Post() //^ POST - /users @Body: express의 body-parser같은 역할
-  postUsers(@Body() body: JoinRequestDto) {
+  async join(@Body() body: JoinRequestDto) {
     //* 회원가입에서 받아야하는 값들. Dto? 데이터 트랜스포 오브젝트: 데이터를 전달하는 오브젝트
-    this.usersService.postUsers(body.email, body.nickname, body.password);
+    await this.usersService.join(body.email, body.nickname, body.password);
     //* this.userService를 위해 의존성 주입을 해야함.
   }
 
