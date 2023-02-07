@@ -6,10 +6,13 @@ import {
   Post,
   Req,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { LocalAuthGuard } from 'src/auth/local-auth.guard';
 import { User } from 'src/common/decorators/user.decorator';
 import { UserDto } from 'src/common/dto/user.dto';
+import { Users } from 'src/entities/Users';
 import { JoinRequestDto } from './dto/join.request.dto';
 import { UsersService } from './users.service';
 
@@ -56,8 +59,9 @@ export class UsersController {
     type: UserDto,
   })
   @ApiOperation({ summary: '로그인' })
+  @UseGuards(LocalAuthGuard) //이 라이프 사이클은 권한, 데이터체크가 가능 주요기능은 권한 체크(401, 403)
   @Post('login') //^ POST - /users/login
-  login(@User() user) {
+  async login(@User() user: Users) {
     //TODO 패스포트 붙일예정
     return user;
   }
