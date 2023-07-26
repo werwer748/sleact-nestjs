@@ -4,6 +4,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoggerMiddleware } from './middleware/logger.middleware';
+import { UsersModule } from './users/users.module';
+import { WorkspacesModule } from './workspaces/workspaces.module';
+import { ChannelsModule } from './channels/channels.module';
+import { DmsModule } from './dms/dms.module';
+import { UsersService } from './users/users.service';
 
 // const getEnv = () => {
 //   // env를 외부에서 가져왔을 때 함수로 만들고 load에 넣어준다.
@@ -15,10 +20,16 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
 
 // express에서 router를 app.js(ts)에 등록해 사용했던 것처럼 여기에 모듈을 등록해 사용한다.
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true })],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    UsersModule,
+    WorkspacesModule,
+    ChannelsModule,
+    DmsModule,
+  ],
   // imports: [ConfigModule.forRoot({ isGlobal: true, load: [getEnv] })], // env를 외부에서 가져왔을 때 연결방법
   controllers: [AppController],
-  providers: [AppService, ConfigService],
+  providers: [AppService, ConfigService, UsersService],
   /*
   providers: [AppService]
   => 원형: providers: [{ provide: AppService, useClass: AppService }] 같은 형태임. 이걸알아야 custom provider를 만들 수 있다.
@@ -27,6 +38,7 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
   useValue는 provide에 해당하는 값을 사용한다는 의미이다.
   useFactory는 provide에 해당하는 factory(함수)를 사용한다는 의미이다.
   */
+  // exports: [] 도 있음
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {

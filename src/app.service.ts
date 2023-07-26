@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { UsersService } from './users/users.service';
 
 /**
  * 서비스 컨트롤러 분리의 이유:
@@ -9,9 +10,13 @@ import { ConfigService } from '@nestjs/config';
  */
 @Injectable()
 export class AppService {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly usersService: UsersService,
+  ) {}
 
   getHello(): string {
+    this.usersService.getUsers();
     return this.configService.get('SECRET');
   }
 }
