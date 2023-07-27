@@ -17,6 +17,8 @@ export class AppService {
 
   getHello(): string {
     this.usersService.getUsers();
-    return this.configService.get('SECRET');
+    const dirname = __dirname;
+    // return this.configService.get('SECRET');
+    return dirname;
   }
 }
