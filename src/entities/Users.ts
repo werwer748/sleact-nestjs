@@ -66,6 +66,12 @@ export class Users {
   @DeleteDateColumn()
   deletedAt: Date | null;
 
+  /* 
+  아래 관계는 처음부터 작성할 필요가 없음.
+  테이블 관계 설정은 필요할 때마다 추가하면 됨.
+  단, 엔티티를 처음부터 작성하여 테이블을 생성할 때는
+  JoinTable은 미리 작성해 두는 것이 무조건 좋다.
+  */
   @OneToMany(() => ChannelChats, (channelchats) => channelchats.User)
   ChannelChats: ChannelChats[];
 

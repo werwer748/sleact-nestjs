@@ -58,8 +58,8 @@ export class UsersController {
   하지만 주요 기능은 권한을 체크하는데 있다.
   */
   @Post('login')
-  login(@User() user) {
-    return user; // 추후 passport 붙일 예정
+  logIn(@User() user) {
+    return user;
   }
 
   @ApiOperation({ summary: '로그아웃' })

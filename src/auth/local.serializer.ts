@@ -29,7 +29,7 @@ export class LocalSerializer extends PassportSerializer {
       })
       .then((user) => {
         console.log('user', user);
-        done(null, user);
+        done(null, user); // req.user
       })
       .catch((error) => done(error));
   }
