@@ -16,6 +16,7 @@ import { Users } from './Users';
 import { Workspaces } from './Workspaces';
 
 @Index('WorkspaceId', ['WorkspaceId'], {})
+@Index('name', ['name'], {}) // Index는 데이터베이스에서 검색할 때 빠르게 찾을 수 있도록 해준다.
 @Entity({ schema: 'sleact' })
 export class Channels {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })

@@ -11,7 +11,7 @@ export class ChannelsController {
   createChannels() {}
 
   @Get(':name')
-  getSpecificChannel() {}
+  getSpecificChannel(@Param('name') name: string) {}
 
   @Get(':name/chats')
   getChat(@Query() query, @Param() param) {

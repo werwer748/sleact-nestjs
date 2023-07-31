@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { WorkspacesService } from './workspaces.service';
 import { Users } from '../entities/Users';
@@ -30,7 +30,9 @@ export class WorkspacesController {
   }
 
   @Get(':url/members')
-  getAllMembersFromWorkspace() {}
+  getAllMembersFromWorkspace(@Param('url') url: string) {
+    return this.workspacesService.getWorkspaceMembers(url);
+  }
 
   @Post(':url/members')
   inviteMembersToWorkspace() {}
@@ -39,10 +41,12 @@ export class WorkspacesController {
   kickMemberFromWorkspace() {}
 
   @Get(':url/members/:id')
-  getMemberInfoInWorkspace() {}
+  getMemberInfoInWorkspace(@Param() param) {
+    return this.workspacesService.getWorkspaceMember(param.url, param.id);
+  }
 
   @Get(':url/users/:id')
-  DEPRECATED_getMemberInfoInWorkspace() {
-    this.getMemberInfoInWorkspace();
+  DEPRECATED_getMemberInfoInWorkspace(@Param() param) {
+    this.getMemberInfoInWorkspace(param);
   }
 }
