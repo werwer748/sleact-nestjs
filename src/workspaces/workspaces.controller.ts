@@ -35,10 +35,14 @@ export class WorkspacesController {
   }
 
   @Post(':url/members')
-  inviteMembersToWorkspace() {}
+  inviteMembersToWorkspace() {
+    console.log('inviteMembersToWorkspace');
+  }
 
   @Delete(':url/members/:id')
-  kickMemberFromWorkspace() {}
+  kickMemberFromWorkspace() {
+    console.log('kickMemberFromWorkspace');
+  }
 
   @Get(':url/members/:id')
   getMemberInfoInWorkspace(@Param() param) {

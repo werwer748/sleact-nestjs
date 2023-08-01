@@ -5,10 +5,16 @@ import {
   Post,
   Req,
   Res,
+  Response,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiTags,
+  ApiResponse,
+  ApiCookieAuth,
+} from '@nestjs/swagger';
 import { JoinRequestDto } from './dto/join.request.dto';
 import { UsersService } from './users.service';
 import { UserDto } from '../common/dto/user.dto';
@@ -62,14 +68,12 @@ export class UsersController {
     return user;
   }
 
+  @ApiCookieAuth('connect.sid')
   @ApiOperation({ summary: '로그아웃' })
-  @UseGuards(new LoggedInGuard())
+  @UseGuards(LoggedInGuard)
   @Post('logout')
-  logout(@Req() req, @Res() res) {
-    // 의존성이 강해지지만 logout같은 경우는 괜찮다고 생각함.
-    req.logout();
+  async logout(@Response() res) {
     res.clearCookie('connect.sid', { httpOnly: true });
-    res.send('ok');
-    // req.session.destroy();
+    return res.send('ok');
   }
 }

@@ -19,6 +19,7 @@ import { Users } from './entities/Users';
 import { WorkspaceMembers } from './entities/WorkspaceMembers';
 import { Workspaces } from './entities/Workspaces';
 import { AuthModule } from './auth/auth.module';
+import { EventsModule } from './events/events.module';
 
 // const getEnv = () => {
 //   // env를 외부에서 가져왔을 때 함수로 만들고 load에 넣어준다.
@@ -60,6 +61,7 @@ import { AuthModule } from './auth/auth.module';
     WorkspacesModule,
     ChannelsModule,
     DmsModule,
+    EventsModule,
   ],
   // imports: [ConfigModule.forRoot({ isGlobal: true, load: [getEnv] })], // env를 외부에서 가져왔을 때 연결방법
   controllers: [AppController],

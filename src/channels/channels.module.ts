@@ -7,6 +7,7 @@ import { ChannelMembers } from '../entities/ChannelMembers';
 import { Workspaces } from '../entities/Workspaces';
 import { ChannelChats } from '../entities/ChannelChats';
 import { Users } from '../entities/Users';
+import { EventsModule } from '../events/events.module';
 
 @Module({
   imports: [
@@ -17,8 +18,9 @@ import { Users } from '../entities/Users';
       ChannelChats,
       Users,
     ]),
+    EventsModule, // EventsGateway를 EventsModule에 담고있으므로 EventsModule을 임포트
   ],
-  providers: [ChannelsService],
+  providers: [ChannelsService], //EventsGateway를 이곳에 추가하면 여러가지 사이드이펙트가 생길수있음.
   controllers: [ChannelsController],
 })
 export class ChannelsModule {}
